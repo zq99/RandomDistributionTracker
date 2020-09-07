@@ -16,7 +16,7 @@ public class Main {
         RandomDistributionTracker randomDistributionTracker = new RandomDistributionTracker();
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
-        for(int i=0;i<=100;i++){
+        for(int i=0;i<=10000;i++){
             double random = randomGenerator.getExponentialRandomNext(lambda);
             randomDistributionTracker.addRandomNumber(random);
         }

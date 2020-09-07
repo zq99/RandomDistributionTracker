@@ -1,5 +1,7 @@
 package com.company;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -43,6 +45,14 @@ public class RandomDistributionTracker {
         }
     }
 
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     public void printDistribution(){
         /*
         this is the main output in the following format:
@@ -57,12 +67,12 @@ public class RandomDistributionTracker {
                 RandomDistribution value = entry.getValue();
                 String sb = key.toString() + ", " +
                         value.getFrequency() + ", " +
-                        value.getTotal() + ", " +
-                        value.getMean() + ", " +
-                        value.getStdDev() + ", " +
-                        value.getVariance() + ", " +
-                        value.getMinValue() + ", " +
-                        value.getMaxValue();
+                        round(value.getTotal(),2) + ", " +
+                        round(value.getMean(),2) + ", " +
+                        round(value.getStdDev(),2) + ", " +
+                        round(value.getVariance(),2) + ", " +
+                        round(value.getMinValue(),2) + ", " +
+                        round(value.getMaxValue(),2);
 
                 System.out.println(sb);
             }
