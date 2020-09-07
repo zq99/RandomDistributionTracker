@@ -30,7 +30,7 @@ It then prints out a summary of the distribution.
         
 ## Output
 
-This is what get printed to the Console window when the above code is run:
+This is what gets printed to the Console window when the above code is run:
 
 ```
 > distribution, frequency, total, mean, std_dev, variance,min, max
