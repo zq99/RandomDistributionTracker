@@ -25,7 +25,7 @@ It then prints out a summary of the distribution.
             double random = randomGenerator.getExponentialRandomNext(lambda);
             randomDistributionTracker.addRandomNumber(random);
         }
-        randomDistributionTracker.printDistribution()
+        randomDistributionTracker.printDistribution();
         
         
 ## Output
