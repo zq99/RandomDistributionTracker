@@ -16,10 +16,12 @@ The class also allows the boundaries of the frequency distribution to be adjuste
 
 This code creates 10,000 random numbers from an exponential distribution and assigns them to the RandomTrackerClass.
 
+At the end it prints out a summary of the distribution.
+
         RandomDistributionTracker randomDistributionTracker = new RandomDistributionTracker();
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
-        for(int i=0;i<=1000;i++){
+        for(int i=0;i<=10000;i++){
             double random = randomGenerator.getExponentialRandomNext(lambda);
             randomDistributionTracker.addRandomNumber(random);
         }
