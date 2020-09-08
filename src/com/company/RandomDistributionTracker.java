@@ -64,7 +64,7 @@ public class RandomDistributionTracker {
         // 0.00 - 0.10, 1017, 51.74, 0.05, 0.02, 8.32, 7.95, 0.09
 
         if(this.randomDistributionHashMap.size() > 0) {
-            String headers = "distribution, frequency, total, mean, std_dev, variance,min, max";
+            String headers = "distribution, frequency, total, mean, std_dev, variance, min, max";
             System.out.println(headers);
             for (Map.Entry<Boundary, RandomDistribution> entry : this.randomDistributionHashMap.entrySet()) {
                 Boundary key = entry.getKey();
@@ -124,9 +124,9 @@ public class RandomDistributionTracker {
         public static ArrayList<Boundary> getBoundaries(double min, double max, double width){
             ArrayList<Boundary> boundaries = new ArrayList<>();
             while(min <= max){
-                double l = min;
-                double u = (l+width) > max ? Double.MAX_VALUE : l+width;
-                Boundary boundary = new Boundary(l,u);
+                double lower = min;
+                double upper = (lower+width) > max ? Double.MAX_VALUE : lower+width;
+                Boundary boundary = new Boundary(lower,upper);
                 boundaries.add(boundary);
                 min+=width;
             }
