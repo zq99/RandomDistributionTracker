@@ -11,36 +11,36 @@ This is class to track the generation of random numbers in program.
 The purpose to is to validate how the numbers are being distributed.
  */
 
-public class RandomDistributionTracker {
+public class NumberDistributionTracker {
 
-    private LinkedHashMap<Boundary, FrequencyDistribution> randomDistributionHashMap;
+    private LinkedHashMap<Boundary, FrequencyDistribution> numberDistributionHashMap;
     private ArrayList<Boundary> boundaries;
 
-    public RandomDistributionTracker() {
+    public NumberDistributionTracker() {
         // default boundaries for grouping are based upon the numbers being
         // percentage probabilities between 0 and 1
         initialize(0,1.0,0.1);
     }
 
-    public RandomDistributionTracker(double min, double max, double width) {
+    public NumberDistributionTracker(double min, double max, double width) {
         initialize(min,max,width);
     }
 
     private void initialize(double min, double max, double width){
-        this.randomDistributionHashMap = new LinkedHashMap<>();
+        this.numberDistributionHashMap = new LinkedHashMap<>();
         this.boundaries = Boundary.getBoundaries(min,max,width);
         for(Boundary boundary : boundaries){
-            this.randomDistributionHashMap.put(boundary, new FrequencyDistribution());
+            this.numberDistributionHashMap.put(boundary, new FrequencyDistribution());
         }
     }
 
-    public void addRandomNumber(double n){
+    public void addNumber(double n){
         Boundary boundary = getBoundaryForValue(n);
         if(boundary !=null) {
-            if (randomDistributionHashMap.containsKey(boundary)) {
-                FrequencyDistribution frequencyDistribution = this.randomDistributionHashMap.get(boundary);
+            if (numberDistributionHashMap.containsKey(boundary)) {
+                FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
                 frequencyDistribution.addNumber(n);
-                this.randomDistributionHashMap.put(boundary, frequencyDistribution);
+                this.numberDistributionHashMap.put(boundary, frequencyDistribution);
             }
         }
     }
@@ -63,10 +63,10 @@ public class RandomDistributionTracker {
         // distribution, frequency, total, mean, std_dev, variance,min, max
         // 0.00 - 0.10, 1017, 51.74, 0.05, 0.02, 8.32, 7.95, 0.09
 
-        if(this.randomDistributionHashMap.size() > 0) {
+        if(this.numberDistributionHashMap.size() > 0) {
             String headers = "distribution, frequency, total, mean, std_dev, variance, min, max";
             System.out.println(headers);
-            for (Map.Entry<Boundary, FrequencyDistribution> entry : this.randomDistributionHashMap.entrySet()) {
+            for (Map.Entry<Boundary, FrequencyDistribution> entry : this.numberDistributionHashMap.entrySet()) {
                 Boundary boundary = entry.getKey();
                 FrequencyDistribution frequencyDistribution = entry.getValue();
                 String summary = boundary.toString() + ", " +

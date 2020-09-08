@@ -13,23 +13,23 @@ public class Main {
     }
 
     private static void exponentialDistributionExample(){
-        RandomDistributionTracker randomDistributionTracker = new RandomDistributionTracker();
+        NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker();
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
         for(int i=0;i<=10000;i++){
             double random = randomGenerator.getExponentialRandomNext(lambda);
-            randomDistributionTracker.addRandomNumber(random);
+            numberDistributionTracker.addNumber(random);
         }
-        randomDistributionTracker.printDistribution();
+        numberDistributionTracker.printDistribution();
     }
 
     private static void uniformDistributionExample(){
-        RandomDistributionTracker randomDistributionTracker = new RandomDistributionTracker(0,1,0.1);
+        NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker(0,1,0.1);
         RandomGenerator randomGenerator = new RandomGenerator();
         for(int i=0;i<=10000;i++){
             double random = randomGenerator.getUniformRandomNext();
-            randomDistributionTracker.addRandomNumber(random);
+            numberDistributionTracker.addNumber(random);
         }
-        randomDistributionTracker.printDistribution();
+        numberDistributionTracker.printDistribution();
     }
 }

@@ -7,7 +7,7 @@ A java class to track the distribution of random numbers.
 I wanted to build a simple process to verify that the random numbers I was using for a simulation were actually from an exponential distribution. I also wanted
 to see the effect of changing lambda values.
 
-So I created a simple class (called RandomDistributionTracker), where I could store the numbers and output their frequencies to confirm their distribution.
+So I created a simple class (called NumberDistributionTracker), where I could store the numbers and output their frequencies to confirm their distribution.
 
 The class also allows the boundaries of the frequency distribution to be adjusted.
 
@@ -18,14 +18,14 @@ This code creates 10,000 random numbers from an exponential distribution and ass
 
 It then prints out a summary of the distribution.
 
-        RandomDistributionTracker randomDistributionTracker = new RandomDistributionTracker();
+        NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker();
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
         for(int i=0;i<=10000;i++){
             double random = randomGenerator.getExponentialRandomNext(lambda);
-            randomDistributionTracker.addRandomNumber(random);
+            numberDistributionTracker.addNumber(random);
         }
-        randomDistributionTracker.printDistribution();
+        numberDistributionTracker.printDistribution();
         
         
 ## Output
