@@ -13,7 +13,7 @@ The purpose to is to validate how the numbers are being distributed.
 
 public class RandomDistributionTracker {
 
-    private LinkedHashMap<Boundary, RandomDistribution> randomDistributionHashMap;
+    private LinkedHashMap<Boundary, FrequencyDistribution> randomDistributionHashMap;
     private ArrayList<Boundary> boundaries;
 
     public RandomDistributionTracker() {
@@ -30,17 +30,17 @@ public class RandomDistributionTracker {
         this.randomDistributionHashMap = new LinkedHashMap<>();
         this.boundaries = Boundary.getBoundaries(min,max,width);
         for(Boundary boundary : boundaries){
-            this.randomDistributionHashMap.put(boundary, new RandomDistribution());
+            this.randomDistributionHashMap.put(boundary, new FrequencyDistribution());
         }
     }
 
     public void addRandomNumber(double n){
-        Boundary boundary = getBoundary(n);
+        Boundary boundary = getBoundaryForValue(n);
         if(boundary !=null) {
             if (randomDistributionHashMap.containsKey(boundary)) {
-                RandomDistribution randomDistribution = this.randomDistributionHashMap.get(boundary);
-                randomDistribution.addNumber(n);
-                this.randomDistributionHashMap.put(boundary, randomDistribution);
+                FrequencyDistribution frequencyDistribution = this.randomDistributionHashMap.get(boundary);
+                frequencyDistribution.addNumber(n);
+                this.randomDistributionHashMap.put(boundary, frequencyDistribution);
             }
         }
     }
@@ -66,17 +66,17 @@ public class RandomDistributionTracker {
         if(this.randomDistributionHashMap.size() > 0) {
             String headers = "distribution, frequency, total, mean, std_dev, variance, min, max";
             System.out.println(headers);
-            for (Map.Entry<Boundary, RandomDistribution> entry : this.randomDistributionHashMap.entrySet()) {
+            for (Map.Entry<Boundary, FrequencyDistribution> entry : this.randomDistributionHashMap.entrySet()) {
                 Boundary boundary = entry.getKey();
-                RandomDistribution randomDistribution = entry.getValue();
+                FrequencyDistribution frequencyDistribution = entry.getValue();
                 String summary = boundary.toString() + ", " +
-                        randomDistribution.getFrequency() + ", " +
-                        round(randomDistribution.getTotal(),decimalCount) + ", " +
-                        round(randomDistribution.getMean(),decimalCount) + ", " +
-                        round(randomDistribution.getStdDev(),decimalCount) + ", " +
-                        round(randomDistribution.getVariance(),decimalCount) + ", " +
-                        round(randomDistribution.getMinValue(),decimalCount) + ", " +
-                        round(randomDistribution.getMaxValue(),decimalCount);
+                        frequencyDistribution.getFrequency() + ", " +
+                        round(frequencyDistribution.getTotal(),decimalCount) + ", " +
+                        round(frequencyDistribution.getMean(),decimalCount) + ", " +
+                        round(frequencyDistribution.getStdDev(),decimalCount) + ", " +
+                        round(frequencyDistribution.getVariance(),decimalCount) + ", " +
+                        round(frequencyDistribution.getMinValue(),decimalCount) + ", " +
+                        round(frequencyDistribution.getMaxValue(),decimalCount);
 
                 System.out.println(summary);
             }
@@ -85,7 +85,7 @@ public class RandomDistributionTracker {
         }
     }
 
-    private Boundary getBoundary(double value) {
+    private Boundary getBoundaryForValue(double value) {
         for(Boundary boundary : boundaries){
             if(boundary.isValueInRange(value)){
                 return boundary;
@@ -126,15 +126,14 @@ public class RandomDistributionTracker {
             while(min <= max){
                 double lower = min;
                 double upper = (lower+width) > max ? Double.MAX_VALUE : lower+width;
-                Boundary boundary = new Boundary(lower,upper);
-                boundaries.add(boundary);
+                boundaries.add(new Boundary(lower,upper));
                 min+=width;
             }
             return boundaries;
         }
     }
 
-    private static class RandomDistribution {
+    private static class FrequencyDistribution {
 
         // this is for storing information about each distribution of a number
 
@@ -144,7 +143,7 @@ public class RandomDistributionTracker {
         private double minValue=0.0;
         private double maxValue=0.0;
 
-        public RandomDistribution() {
+        public FrequencyDistribution() {
         }
 
         public int getFrequency() {
