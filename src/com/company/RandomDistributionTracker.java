@@ -67,18 +67,18 @@ public class RandomDistributionTracker {
             String headers = "distribution, frequency, total, mean, std_dev, variance, min, max";
             System.out.println(headers);
             for (Map.Entry<Boundary, RandomDistribution> entry : this.randomDistributionHashMap.entrySet()) {
-                Boundary key = entry.getKey();
-                RandomDistribution value = entry.getValue();
-                String sb = key.toString() + ", " +
-                        value.getFrequency() + ", " +
-                        round(value.getTotal(),decimalCount) + ", " +
-                        round(value.getMean(),decimalCount) + ", " +
-                        round(value.getStdDev(),decimalCount) + ", " +
-                        round(value.getVariance(),decimalCount) + ", " +
-                        round(value.getMinValue(),decimalCount) + ", " +
-                        round(value.getMaxValue(),decimalCount);
+                Boundary boundary = entry.getKey();
+                RandomDistribution randomDistribution = entry.getValue();
+                String summary = boundary.toString() + ", " +
+                        randomDistribution.getFrequency() + ", " +
+                        round(randomDistribution.getTotal(),decimalCount) + ", " +
+                        round(randomDistribution.getMean(),decimalCount) + ", " +
+                        round(randomDistribution.getStdDev(),decimalCount) + ", " +
+                        round(randomDistribution.getVariance(),decimalCount) + ", " +
+                        round(randomDistribution.getMinValue(),decimalCount) + ", " +
+                        round(randomDistribution.getMaxValue(),decimalCount);
 
-                System.out.println(sb);
+                System.out.println(summary);
             }
         }else{
             System.out.println("no numbers found!");
