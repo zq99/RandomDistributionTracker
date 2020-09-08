@@ -112,9 +112,9 @@ public class NumberDistributionTracker {
 
         public String toString(){
             if(this.upper == Double.MAX_VALUE){
-                return format(this.lower) + "+";
+                return "{" + format(this.lower) + "+}";
             }
-            return format(this.lower) + " - " + format(this.upper);
+            return "{" + format(this.lower) + " to " + format(this.upper) + "}";
         }
 
         private String format(double value){
