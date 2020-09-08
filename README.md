@@ -14,7 +14,7 @@ The class also allows the boundaries of the frequency distribution to be adjuste
 
 ## Implementation
 
-This code creates 10,000 random numbers from an exponential distribution and assigns them to the RandomTrackerClass.
+This code creates 10,000 random numbers from an exponential distribution and assigns them to the number tracker class.
 
 It then prints out a summary of the distribution.
 
