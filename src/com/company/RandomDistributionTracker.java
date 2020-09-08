@@ -54,11 +54,15 @@ public class RandomDistributionTracker {
     }
 
     public void printDistribution(){
-        /*
-        this is the main output in the following format:
-        >distribution, frequency, total, mean, std_dev, variance,min, max
-        >0.00 - 0.10, 1017, 51.74, 0.05, 0.02, 8.32, 7.95, 0.09
-         */
+        printDistribution(2);
+    }
+
+    public void printDistribution(int decimalCount){
+
+        // this is the main output in the following format:
+        // distribution, frequency, total, mean, std_dev, variance,min, max
+        // 0.00 - 0.10, 1017, 51.74, 0.05, 0.02, 8.32, 7.95, 0.09
+
         if(this.randomDistributionHashMap.size() > 0) {
             String headers = "distribution, frequency, total, mean, std_dev, variance,min, max";
             System.out.println(headers);
@@ -67,12 +71,12 @@ public class RandomDistributionTracker {
                 RandomDistribution value = entry.getValue();
                 String sb = key.toString() + ", " +
                         value.getFrequency() + ", " +
-                        round(value.getTotal(),2) + ", " +
-                        round(value.getMean(),2) + ", " +
-                        round(value.getStdDev(),2) + ", " +
-                        round(value.getVariance(),2) + ", " +
-                        round(value.getMinValue(),2) + ", " +
-                        round(value.getMaxValue(),2);
+                        round(value.getTotal(),decimalCount) + ", " +
+                        round(value.getMean(),decimalCount) + ", " +
+                        round(value.getStdDev(),decimalCount) + ", " +
+                        round(value.getVariance(),decimalCount) + ", " +
+                        round(value.getMinValue(),decimalCount) + ", " +
+                        round(value.getMaxValue(),decimalCount);
 
                 System.out.println(sb);
             }
@@ -92,7 +96,7 @@ public class RandomDistributionTracker {
 
     private static class Boundary{
 
-        /** inner class stores the limits to each boundary and validates **/
+        // inner class stores the limits to each boundary and validates
 
         private final double lower;
         private final double upper;
@@ -131,9 +135,9 @@ public class RandomDistributionTracker {
     }
 
     private static class RandomDistribution {
-        /*
-        this is store information about each distribution of a number
-         */
+
+        // this is for storing information about each distribution of a number
+
         private int frequency=0;
         private double total=0.0;
         private final ArrayList<Double> numbersAdded = new ArrayList<>();
