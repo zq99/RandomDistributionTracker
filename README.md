@@ -54,7 +54,7 @@ For example, the following line would group the numbers from 0 to 1, in band wid
 
         NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker(0,1,0.25);
         
-You can also change the bandwidth of an existing distribution like so:
+You can also change the width of an existing distribution like so:
 
         numberDistributionTracker.changeDistributionForWidth(0.25);
         numberDistributionTracker.printDistribution();
