@@ -22,6 +22,7 @@ public class NumberDistributionTracker {
     private double min = 0;
     private double max = 1.0;
     private double width = 0.1;
+    private ArrayList<Double> numbersAdded;
 
     public NumberDistributionTracker() {
         initialize();
@@ -35,9 +36,14 @@ public class NumberDistributionTracker {
     }
 
     private void initialize(){
+        this.numbersAdded = new ArrayList<>();
+        newDistribution();
+    }
+
+    private void newDistribution() {
         this.numberDistributionHashMap = new LinkedHashMap<>();
-        this.boundaries = Boundary.getBoundaries(min,max,width);
-        for(Boundary boundary : boundaries){
+        this.boundaries = Boundary.getBoundaries(min, max, width);
+        for (Boundary boundary : boundaries) {
             this.numberDistributionHashMap.put(boundary, new FrequencyDistribution());
         }
     }
@@ -46,6 +52,7 @@ public class NumberDistributionTracker {
         Boundary boundary = getBoundaryForValue(n);
         if(boundary !=null) {
             if (numberDistributionHashMap.containsKey(boundary)) {
+                this.numbersAdded.add(n);
                 FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
                 frequencyDistribution.addNumber(n);
                 this.numberDistributionHashMap.put(boundary, frequencyDistribution);
@@ -55,6 +62,25 @@ public class NumberDistributionTracker {
 
     public void reset(){
         initialize();
+    }
+
+    public void changeDistributionForWidth(double width){
+        // this allows for an existing set of numbers to be 're-dimensioned'
+        // into a different set of bands
+        this.width = width;
+        newDistribution();
+        if(this.numbersAdded.size() > 0) {
+            for (double n : this.numbersAdded) {
+                Boundary boundary = getBoundaryForValue(n);
+                if(boundary !=null) {
+                    if (numberDistributionHashMap.containsKey(boundary)) {
+                        FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
+                        frequencyDistribution.addNumber(n);
+                        this.numberDistributionHashMap.put(boundary, frequencyDistribution);
+                    }
+                }
+            }
+        }
     }
 
     private static double round(double value, int places) {
@@ -151,7 +177,7 @@ public class NumberDistributionTracker {
 
         private int frequency=0;
         private double total=0.0;
-        private final ArrayList<Double> numbersAdded = new ArrayList<>();
+        private final ArrayList<Double> numbersInDistribution = new ArrayList<>();
         private double minValue=0.0;
         private double maxValue=0.0;
 
@@ -183,42 +209,42 @@ public class NumberDistributionTracker {
 
         public double getStdDev()
         {
-            if(numbersAdded.size() == 0){
+            if(numbersInDistribution.size() == 0){
                 return 0;
             }
             double mean = getMean();
             double temp = 0;
-            for (double val : numbersAdded) {
+            for (double val : numbersInDistribution) {
                 double squareDiffToMean = Math.pow(val - mean, 2);
                 temp += squareDiffToMean;
             }
-            double meanOfDiffs = temp / (double) (numbersAdded.size());
+            double meanOfDiffs = temp / (double) (numbersInDistribution.size());
             return Math.sqrt(meanOfDiffs);
         }
 
         public double getVariance()
         {
-            if(numbersAdded.size() == 0){
+            if(numbersInDistribution.size() == 0){
                 return 0;
             }
             double mean = getMean();
             double square = 0;
-            for(double val :numbersAdded)
+            for(double val : numbersInDistribution)
                 square += (val-mean)*(val-mean);
-            return square/numbersAdded.size();
+            return square/ numbersInDistribution.size();
         }
 
         public void addNumber(double number){
             this.frequency +=1;
             this.total+=number;
-            if(this.numbersAdded.size()==0){
+            if(this.numbersInDistribution.size()==0){
                 this.maxValue = number;
                 this.minValue = number;
             }else{
                 this.minValue = Math.min(number, this.minValue);
                 this.maxValue = Math.max(number,this.maxValue);
             }
-            this.numbersAdded.add(number);
+            this.numbersInDistribution.add(number);
         }
 
     }

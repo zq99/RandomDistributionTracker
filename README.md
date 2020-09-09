@@ -49,8 +49,14 @@ distribution, frequency, total, mean, std_dev, variance, min, max
 
 ## Configure
 
-You can change class boundaries for each distribution by specifying a min, max and width value in the class constructor.
+You can define class boundaries for each distribution by specifying a min, max and width value in the class constructor.
 For example, the following line would group the numbers from 0 to 1, in band widths of 0.25:
 
         NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker(0,1,0.25);
+        
+You can also change the bandwidth of an existing distribution like so:
+
+        numberDistributionTracker.changeDistributionForWidth(0.25);
+        numberDistributionTracker.printDistribution();
+ 
 

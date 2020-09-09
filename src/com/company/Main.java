@@ -31,5 +31,11 @@ public class Main {
             numberDistributionTracker.addNumber(random);
         }
         numberDistributionTracker.printDistribution();
+
+        System.out.println();
+
+        numberDistributionTracker.changeDistributionForWidth(0.25);
+        numberDistributionTracker.printDistribution();
+
     }
 }
