@@ -16,17 +16,25 @@ public class NumberDistributionTracker {
     private LinkedHashMap<Boundary, FrequencyDistribution> numberDistributionHashMap;
     private ArrayList<Boundary> boundaries;
 
+    // default boundaries for grouping are based upon the numbers being
+    // percentage probabilities between 0 and 1
+
+    private double min = 0;
+    private double max = 1.0;
+    private double width = 0.1;
+
     public NumberDistributionTracker() {
-        // default boundaries for grouping are based upon the numbers being
-        // percentage probabilities between 0 and 1
-        initialize(0,1.0,0.1);
+        initialize();
     }
 
     public NumberDistributionTracker(double min, double max, double width) {
-        initialize(min,max,width);
+        this.min = min;
+        this.max = max;
+        this.width = width;
+        initialize();
     }
 
-    private void initialize(double min, double max, double width){
+    private void initialize(){
         this.numberDistributionHashMap = new LinkedHashMap<>();
         this.boundaries = Boundary.getBoundaries(min,max,width);
         for(Boundary boundary : boundaries){
@@ -45,7 +53,11 @@ public class NumberDistributionTracker {
         }
     }
 
-    public static double round(double value, int places) {
+    public void reset(){
+        initialize();
+    }
+
+    private static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 
         BigDecimal bd = BigDecimal.valueOf(value);
