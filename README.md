@@ -46,3 +46,11 @@ distribution, frequency, total, mean, std_dev, variance, min, max
 {0.90 to 1.00}, 55, 51.8, 0.94, 0.03, 0.0, 0.9, 1.0
 {1.00+}, 61, 73.56, 1.21, 0.25, 0.06, 1.0, 2.38
 ```
+
+## Configure
+
+You can change class boundaries for each distribution by specifying a min, max and width value in the class constructor.
+For example, the following line would group the numbers from 0 to 1, in band widths of 0.25:
+
+        NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker(0,1,0.25);
+
