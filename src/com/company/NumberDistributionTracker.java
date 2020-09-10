@@ -136,8 +136,8 @@ public class NumberDistributionTracker {
 
     public ArrayList<Double> getNumbersInDistributionForBoundary(String name){
 
-        // takes in the to_string value of a boundary
-        // to retrieve all numbers for the frequency in the boundary
+        // takes in the to_string() value of a boundary
+        // to retrieve all numbers for the frequency in that boundary
 
         for(Boundary boundary : boundaries){
             if(boundary.toString().equals(name)){
@@ -191,7 +191,8 @@ public class NumberDistributionTracker {
 
     private static class FrequencyDistribution {
 
-        // this is for storing information about each distribution of a number
+        // this is for storing information about each distribution
+        // relating to a boundary
 
         private int frequency=0;
         private double total=0.0;
