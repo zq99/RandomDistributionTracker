@@ -13,7 +13,7 @@ public class RandomGenerator {
     }
 
     public double getUniformRandomNext(){
-        return rand.nextDouble();
+       return rand.nextDouble();
     }
 
     public double getNegativeExponentialRandomNext(double value) {

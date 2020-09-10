@@ -37,10 +37,10 @@ public class NumberDistributionTracker {
 
     private void initialize(){
         this.numbersAdded = new ArrayList<>();
-        newDistribution();
+        createNewDistribution();
     }
 
-    private void newDistribution() {
+    private void createNewDistribution() {
         this.numberDistributionHashMap = new LinkedHashMap<>();
         this.boundaries = Boundary.getBoundaries(min, max, width);
         for (Boundary boundary : boundaries) {
@@ -53,11 +53,15 @@ public class NumberDistributionTracker {
         if(boundary !=null) {
             if (numberDistributionHashMap.containsKey(boundary)) {
                 this.numbersAdded.add(n);
-                FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
-                frequencyDistribution.addNumber(n);
-                this.numberDistributionHashMap.put(boundary, frequencyDistribution);
+                updateFrequencyForBoundary(boundary,n);
             }
         }
+    }
+
+    private void updateFrequencyForBoundary(Boundary boundary, double n){
+        FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
+        frequencyDistribution.addNumber(n);
+        this.numberDistributionHashMap.put(boundary, frequencyDistribution);
     }
 
     public void reset(){
@@ -68,15 +72,13 @@ public class NumberDistributionTracker {
         // this allows for an existing set of numbers to be 're-dimensioned'
         // into a different set of bands
         this.width = width;
-        newDistribution();
+        createNewDistribution();
         if(this.numbersAdded.size() > 0) {
             for (double n : this.numbersAdded) {
                 Boundary boundary = getBoundaryForValue(n);
                 if(boundary !=null) {
                     if (numberDistributionHashMap.containsKey(boundary)) {
-                        FrequencyDistribution frequencyDistribution = this.numberDistributionHashMap.get(boundary);
-                        frequencyDistribution.addNumber(n);
-                        this.numberDistributionHashMap.put(boundary, frequencyDistribution);
+                        updateFrequencyForBoundary(boundary,n);
                     }
                 }
             }
@@ -132,6 +134,22 @@ public class NumberDistributionTracker {
         return null;
     }
 
+    public ArrayList<Double> getNumbersInDistributionForBoundary(String name){
+
+        // takes in the to_string value of a boundary
+        // to retrieve all numbers for the frequency in the boundary
+
+        for(Boundary boundary : boundaries){
+            if(boundary.toString().equals(name)){
+                FrequencyDistribution frequencyDistribution = numberDistributionHashMap.get(boundary);
+                if(frequencyDistribution!=null){
+                    return frequencyDistribution.getNumbersInDistribution();
+                }
+            }
+        }
+        return null;
+    }
+
     private static class Boundary{
 
         // inner class stores the limits to each boundary and validates
@@ -177,11 +195,16 @@ public class NumberDistributionTracker {
 
         private int frequency=0;
         private double total=0.0;
-        private final ArrayList<Double> numbersInDistribution = new ArrayList<>();
+        private final ArrayList<Double> numbersInDistribution;
         private double minValue=0.0;
         private double maxValue=0.0;
 
         public FrequencyDistribution() {
+            this.numbersInDistribution = new ArrayList<>();
+        }
+
+        public ArrayList<Double> getNumbersInDistribution(){
+            return this.numbersInDistribution;
         }
 
         public int getFrequency() {

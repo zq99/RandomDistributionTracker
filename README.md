@@ -59,7 +59,7 @@ You can also change the width of an existing distribution like so:
         numberDistributionTracker.changeDistributionForWidth(0.25);
         numberDistributionTracker.printDistribution();
  
-Here is the output for a distribution where the width has been changed to 0.25:
+Here is the output for a uniform distribution where the width has been changed to 0.25:
  
 ```
 distribution, frequency, total, mean, std_dev, variance, min, max
