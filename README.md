@@ -14,7 +14,7 @@ The class also allows the boundaries of the frequency distribution to be adjuste
 
 ## Implementation
 
-This code creates 10,000 random numbers from an exponential distribution and assigns them to the number tracker class.
+This code creates 10,000 random numbers from a negative exponential distribution and assigns them to the number tracker class.
 
 It then prints out a summary of the distribution.
 
@@ -22,7 +22,7 @@ It then prints out a summary of the distribution.
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
         for(int i=0;i<=10000;i++){
-            double random = randomGenerator.getExponentialRandomNext(lambda);
+            double random = randomGenerator.getNegativeExponentialRandomNext(lambda);
             numberDistributionTracker.addNumber(random);
         }
         numberDistributionTracker.printDistribution();
@@ -59,4 +59,13 @@ You can also change the width of an existing distribution like so:
         numberDistributionTracker.changeDistributionForWidth(0.25);
         numberDistributionTracker.printDistribution();
  
-
+Here is the output for a distribution where the width has been changed to 0.25:
+ 
+```
+distribution, frequency, total, mean, std_dev, variance, min, max
+{0.00 to 0.25}, 2500, 303.14, 0.12, 0.07, 0.01, 0.0, 0.25
+{0.25 to 0.50}, 2446, 921.16, 0.38, 0.07, 0.01, 0.25, 0.5
+{0.50 to 0.75}, 2499, 1558.88, 0.62, 0.07, 0.01, 0.5, 0.75
+{0.75 to 1.00}, 2556, 2234.18, 0.87, 0.07, 0.01, 0.75, 1.0
+{1.00+}, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+```

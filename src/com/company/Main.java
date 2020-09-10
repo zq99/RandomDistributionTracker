@@ -7,17 +7,17 @@ public class Main {
     }
 
     private static void runExamples(){
-        exponentialDistributionExample();
+        negativeExponentialDistributionExample();
         System.out.println();
         uniformDistributionExample();
     }
 
-    private static void exponentialDistributionExample(){
+    private static void negativeExponentialDistributionExample(){
         NumberDistributionTracker numberDistributionTracker = new NumberDistributionTracker();
         RandomGenerator randomGenerator = new RandomGenerator();
         double lambda = 5;
         for(int i=0;i<=10000;i++){
-            double random = randomGenerator.getExponentialRandomNext(lambda);
+            double random = randomGenerator.getNegativeExponentialRandomNext(lambda);
             numberDistributionTracker.addNumber(random);
         }
         numberDistributionTracker.printDistribution();
