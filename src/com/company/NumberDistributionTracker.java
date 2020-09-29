@@ -37,10 +37,10 @@ public class NumberDistributionTracker {
 
     private void initialize(){
         this.numbersAdded = new ArrayList<>();
-        createNewDistribution();
+        initializeDistribution();
     }
 
-    private void createNewDistribution() {
+    private void initializeDistribution() {
         this.numberDistributionHashMap = new LinkedHashMap<>();
         this.boundaries = Boundary.getBoundaries(min, max, width);
         for (Boundary boundary : boundaries) {
@@ -72,7 +72,7 @@ public class NumberDistributionTracker {
         // this allows for an existing set of numbers to be 're-dimensioned'
         // into a different set of bands
         this.width = width;
-        createNewDistribution();
+        initializeDistribution();
         if(this.numbersAdded.size() > 0) {
             for (double n : this.numbersAdded) {
                 Boundary boundary = getBoundaryForValue(n);
